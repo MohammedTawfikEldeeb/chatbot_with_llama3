@@ -22,7 +22,7 @@ if "messages" not in st.session_state:
 if "pending_message" not in st.session_state:
     st.session_state.pending_message = None
 
-# Custom CSS for clean UI
+# CSS 
 st.markdown("""
 <style>
     .stChatInput {position: fixed; bottom: 20px;}
@@ -45,7 +45,7 @@ with st.sidebar:
         st.session_state.messages = []
         st.rerun()
 
-# Main chat interface
+# chat interface
 st.title("💬 Llama 3 Chat")
 
 # Display all historical messages
@@ -53,7 +53,7 @@ for msg in st.session_state.messages:
     with st.chat_message(msg["role"]):
         st.markdown(msg["content"])
 
-# Handle new user input
+
 if prompt := st.chat_input("Message Llama..."):
     # Store pending message (not yet in full history)
     st.session_state.pending_message = {"role": "user", "content": prompt}
@@ -62,12 +62,12 @@ if prompt := st.chat_input("Message Llama..."):
     with st.chat_message("user"):
         st.markdown(prompt)
     
-    # Generate AI response
+    # AI response
     with st.chat_message("assistant"):
         response_placeholder = st.empty()
         full_response = ""
         
-        # Include pending message in context
+        # pending message in context
         context_messages = st.session_state.messages[-MAX_HISTORY:] + [st.session_state.pending_message]
         
         stream = client.chat.completions.create(
@@ -84,7 +84,7 @@ if prompt := st.chat_input("Message Llama..."):
         
         response_placeholder.markdown(full_response)
     
-    # Only add to full history AFTER complete response
+    
     st.session_state.messages.append(st.session_state.pending_message)
     st.session_state.messages.append({"role": "assistant", "content": full_response})
     st.session_state.pending_message = None
