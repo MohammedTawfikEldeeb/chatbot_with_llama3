@@ -20,5 +20,5 @@ A blazing-fast AI chatbot powered by **Meta's Llama 3 70B** model through Groq's
 
 1. **Clone the repo**
    ```bash
-   git clone https://github.com/yourusername/llama3-chatbot.git
+   git clone https://github.com/MohammedTawfikEldeeb/chatbot_with_llama3
   
